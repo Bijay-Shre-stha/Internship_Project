@@ -1,0 +1,39 @@
+.fa-solid{
+    color: #fff;
+    font-size: 25px;
+    cursor: pointer;
+    transition: transform 0.2s; /* Add a smooth transition for the shake effect */
+  }
+  
+  .fa-trash {
+    color: red;
+  }
+  .fa-user-pen{
+    color:rgba(85, 210, 85, 0.838)
+  }
+  
+  /* Define the keyframes for the shake animation */
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(5px); }
+  }
+  
+  /* Apply the shake animation when hovering over the element */
+  .fa-trash:hover {
+    animation: shake 1s ;
+  }
+  .fa-user-pen:hover {
+    animation: shake 1s ;
+  }
+  
+  .icon_button{
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    border-radius: 50%;
+    transition: transform 0.2s; /* Add a smooth transition for the shake effect */
+  }
