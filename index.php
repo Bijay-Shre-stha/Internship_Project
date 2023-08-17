@@ -25,6 +25,18 @@ class todoManager
   {
     $sql = "INSERT INTO `notes` (`title`, `description`, `tag`) VALUES ('$title', '$description', '$tag')";
     $addResult = mysqli_query($this->conn, $sql);
+    if ($addResult) {
+      echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Success!</strong> Your note has been added successfully.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>';
+  } else {
+      echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Error!</strong> We are facing some technical issue and your note was not added successfully. We regret the inconvenience caused!
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>';
+  }
+  header("Location: /todo/index.php");
     if ($addResult === false) {
       echo "Query error: " . mysqli_error($this->conn);
       return null;
@@ -36,6 +48,18 @@ class todoManager
   {
     $sql = "DELETE FROM `notes` WHERE `notes`.`S.No` = $sno";
     $deleteResult = mysqli_query($this->conn, $sql);
+    if ($deleteResult) {
+      echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Success!</strong> Your note has been deleted successfully.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>';
+  } else {
+      echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Error!</strong> We are facing some technical issue and your note was not deleted successfully. We regret the inconvenience caused!
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>';
+  }
+  header("Location: /todo/index.php");
     if ($deleteResult === false) {
       echo "Query error: " . mysqli_error($this->conn);
       return null;
@@ -47,12 +71,24 @@ class todoManager
   {
     $sql = "UPDATE `notes` SET `title` = '$title', `description` = '$description', `tag` = '$tag' WHERE `notes`.`S.No` = $sno";
     $updateResult = mysqli_query($this->conn, $sql);
+    if ($updateResult) {
+      echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Success!</strong> Your note has been updated successfully.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>';
+  } else {
+      echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Error!</strong> We are facing some technical issue and your note was not updated successfully. We regret the inconvenience caused!
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>';
+    header("Location: /todo/index.php");
     if ($updateResult === false) {
       echo "Query error: " . mysqli_error($this->conn);
       return null;
     }
     return $updateResult;
   }
+}
 }
 try {
   $servername = "localhost";
@@ -109,8 +145,7 @@ try {
 <body>
   <!-- Edit modal -->
   <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#editModal">Edit
-    Modal</button>
+  <button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#editModal">Edit Modal</button>
   <!-- Modal -->
   <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -143,7 +178,7 @@ try {
 
 
   <div class="container my-3">
-    <h1>Add Notes</h1>
+    <h1 class="heading">Add Notes</h1>
     <form action="/todo/index.php" method='POST'>
       <div class="mb-3">
         <label for="title" class="form-label">Add Title</label>
@@ -185,7 +220,7 @@ try {
             <td>" . $row["description"] . "</td>
             <td>" . $row["tag"] . "</td>
             <td> 
-                <button class='edit btn btn-sm btn-primary'data-bs-toggle='modal' data-bs-target='#editModal' id=" . $row['S.No'] . ">Edit</button>
+                <button class='edit btn btn-sm btn-success 'data-bs-toggle='modal' data-bs-target='#editModal' id=" . $row['S.No'] . ">Edit</button>
                 <button class='delete btn btn-sm btn-danger' id=" . $row['S.No'] . ">Delete</button>
           </tr>";
           }
@@ -199,6 +234,7 @@ try {
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+  <script src="https://kit.fontawesome.com/20cb78088c.js" crossorigin="anonymous"></script>
   <script>
     edits = document.getElementsByClassName('edit');
     Array.from(edits).forEach((element) => {
@@ -226,7 +262,6 @@ try {
     })
 
     const alertElement = document.querySelector('.alert');
-
     setTimeout(function() {
       alertElement.remove();
     }, 3000);

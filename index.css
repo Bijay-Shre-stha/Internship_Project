@@ -1,3 +1,11 @@
+*{
+  font-family: 'Inter';
+  font-size: 17px;
+}
+.heading{
+  font-size: 50px;
+  text-align: center;
+}
 .fa-solid{
     color: #fff;
     font-size: 25px;
