@@ -178,7 +178,7 @@ try {
 
 
   <div class="container my-3">
-    <h1 class="heading">Add Notes</h1>
+    <h1 class="heading fw-bold">Add Notes</h1>
     <form action="/todo/index.php" method='POST'>
       <div class="mb-3">
         <label for="title" class="form-label">Add Title</label>
