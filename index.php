@@ -30,18 +30,18 @@ class todoManager
       <strong>Success!</strong> Your note has been added successfully.
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>';
-  } else {
+    } else {
       echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
       <strong>Error!</strong> We are facing some technical issue and your note was not added successfully. We regret the inconvenience caused!
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>';
-  }
-  header("Location: /todo/index.php");
-    if ($addResult === false) {
-      echo "Query error: " . mysqli_error($this->conn);
-      return null;
+      header("Location: /todo/index.php");
+      if ($addResult === false) {
+        echo "Query error: " . mysqli_error($this->conn);
+        return null;
+      }
+      return $addResult;
     }
-    return $addResult;
   }
   //delete
   public function delete($sno)
@@ -53,18 +53,18 @@ class todoManager
       <strong>Success!</strong> Your note has been deleted successfully.
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>';
-  } else {
+    } else {
       echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
       <strong>Error!</strong> We are facing some technical issue and your note was not deleted successfully. We regret the inconvenience caused!
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>';
-  }
-  header("Location: /todo/index.php");
-    if ($deleteResult === false) {
-      echo "Query error: " . mysqli_error($this->conn);
-      return null;
+      header("Location: /todo/index.php");
+      if ($deleteResult === false) {
+        echo "Query error: " . mysqli_error($this->conn);
+        return null;
+      }
+      return $deleteResult;
     }
-    return $deleteResult;
   }
   //update
   public function update($sno, $title, $description, $tag)
@@ -76,19 +76,19 @@ class todoManager
       <strong>Success!</strong> Your note has been updated successfully.
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>';
-  } else {
+    } else {
       echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
       <strong>Error!</strong> We are facing some technical issue and your note was not updated successfully. We regret the inconvenience caused!
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>';
-    header("Location: /todo/index.php");
-    if ($updateResult === false) {
-      echo "Query error: " . mysqli_error($this->conn);
-      return null;
+      header("Location: /todo/index.php");
+      if ($updateResult === false) {
+        echo "Query error: " . mysqli_error($this->conn);
+        return null;
+      }
+      return $updateResult;
     }
-    return $updateResult;
   }
-}
 }
 try {
   $servername = "localhost";
@@ -211,26 +211,27 @@ try {
       <tbody>
         <?php
         $sno = 0;
-        if ($result !== null) {
+        if (mysqli_num_rows($result) > 0) {
           while ($row = mysqli_fetch_assoc($result)) {
             $sno = $sno + 1;
             echo "<tr>
-            <th scope='row'>" . $sno . "</th>
-            <td>" . $row["title"] . "</td>
-            <td>" . $row["description"] . "</td>
-            <td>" . $row["tag"] . "</td>
-            <td> 
-                <button class='edit btn btn-sm btn-success 'data-bs-toggle='modal' data-bs-target='#editModal' id=" . $row['S.No'] . ">Edit</button>
-                <button class='delete btn btn-sm btn-danger' id=" . $row['S.No'] . ">Delete</button>
-          </tr>";
+          <th scope='row'>" . $sno . "</th>
+          <td>" . $row["title"] . "</td>
+          <td>" . $row["description"] . "</td>
+          <td>" . $row["tag"] . "</td>
+          <td> 
+              <button class='edit btn btn-sm btn-success 'data-bs-toggle='modal' data-bs-target='#editModal' id=" . $row['S.No'] . ">Edit</button>
+              <button class='delete btn btn-sm btn-danger' id=" . $row['S.No'] . ">Delete</button>
+        </tr>";
           }
         } else {
-          echo "<tr><td colspan='5'>No notes available</td></tr>";
+          echo "<trz><td colspan='5'>No notes available</td></trz>";
         }
         ?>
       </tbody>
     </table>
   </div>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
