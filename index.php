@@ -69,7 +69,7 @@ class todoManager
   //update
   public function update($sno, $title, $description, $tag)
   {
-    $sql = "UPDATE `notes` SET `title` = '$title', `description` = '$description', `tag` = '$tag' WHERE `notes`.`S.No` = $sno";
+      $sql = "UPDATE `notes` SET `title` = '$title', `description` = '$description', `tag` = '$tag', `last_update` = NOW() WHERE `notes`.`S.No` = $sno";
     $updateResult = mysqli_query($this->conn, $sql);
     if ($updateResult) {
       echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -138,10 +138,6 @@ try {
 
 </head>
 
-<?php
-
-?>
-
 <body>
   <!-- Edit modal -->
   <!-- Button trigger modal -->
@@ -205,6 +201,7 @@ try {
           <th scope="col">Title</th>
           <th scope="col">Description</th>
           <th scope="col">Tag</th>
+          <th scope="col">Last Update</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
@@ -219,6 +216,7 @@ try {
           <td>" . $row["title"] . "</td>
           <td>" . $row["description"] . "</td>
           <td>" . $row["tag"] . "</td>
+          <td class='text-danger'><b>". $row["last_update"]. "</b></td>
           <td> 
               <button class='edit btn btn-sm btn-success 'data-bs-toggle='modal' data-bs-target='#editModal' id=" . $row['S.No'] . ">Edit</button>
               <button class='delete btn btn-sm btn-danger' id=" . $row['S.No'] . ">Delete</button>
